@@ -47,3 +47,8 @@ def morse_to_text(morse_code: str) -> str:
         decoded_words.append(''.join(decoded_letters))
 
     return ' '.join(decoded_words)
+
+
+# 示例用法
+example = '···· · −··− ·−−−   ·−− ·− ··· −'
+print(morse_to_text(example))  # 输出: HEXO AXST
