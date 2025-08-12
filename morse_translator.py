@@ -11,6 +11,12 @@ MORSE_CODE_DICT = {
     '−····': '6', '−−···': '7', '−−−··': '8', '−−−−·': '9', '−−−−−': '0'
 }
 
+class MorseCode:
+    def __init__(self):
+        # self.elements = None
+        # self.input_string = None
+        # self.is_short_code = None
+        pass
 
 def morse_to_text(morse_code: str) -> str:
     # 按单词分割（三个空格）
