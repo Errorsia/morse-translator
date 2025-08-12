@@ -125,6 +125,32 @@ class MorseCode:
 
         return ' '.join(decoded_words)
 
+    @staticmethod
+    def compress_morse(morse_str: str) -> str:
+        """
+        将分隔格式的莫尔斯电码转换为紧凑格式：
+        - 每个字母由多个点/划组成，之间无空格
+        - 字母之间保留3个空格，单词之间保留7个空格
+        """
+
+        result = []
+        # 首先按单词分割（7个空格）
+        words = morse_str.strip().split('       ')  # 分隔单词
+
+        for word in words:
+            compressed_letters = []
+            # 按字母分割（3个空格）
+            letters = word.strip().split('   ')
+            for letter in letters:
+                # 去掉字母中每个信号之间的空格
+                compressed = letter.replace(' ', '')
+                compressed_letters.append(compressed)
+            # 将字母组合成单词（用3个空格连接）
+            result.append('   '.join(compressed_letters))
+
+        # 最终将单词组合起来（用7个空格连接）
+        return '       '.join(result)
+
 
 def morse_to_text(morse_code: str) -> str:
     # 按单词分割（三个空格）
