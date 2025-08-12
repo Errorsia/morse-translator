@@ -18,6 +18,35 @@ class MorseCode:
         # self.is_short_code = None
         pass
 
+    def translate(self, input_string : str):
+
+        preparing_str = input_string.strip().replace('.', '·').replace('-', '−')
+
+        elements = self.get_elements(input_string)
+
+        if not self.contain_valid_element_number(elements):
+            sys.exit('Invalid element number')
+
+        if not elements == {'·', '−'}:
+            preparing_str = self.element_reassignment(list(elements), preparing_str)
+        print(preparing_str)
+
+
+
+        print(self.detect_morse_format(preparing_str))
+
+
+        print(self.morse_to_text(preparing_str))
+
+        # 示例用法
+        # example = '···· · −··− ·−−−   ·−− ·− ··· −'
+        # print(self.morse_to_text(example))  # 输出: HEXO AXST
+        # if not self.is_valid_code(input_string):
+        #     sys.exit('Unsupported format')
+
+
+
+
 def morse_to_text(morse_code: str) -> str:
     # 按单词分割（三个空格）
     words = morse_code.strip().split('   ')
