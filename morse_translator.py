@@ -46,6 +46,11 @@ class MorseCode:
 
 
 
+    @staticmethod
+    def get_elements(s):
+        chars = s.replace(' ', '')
+        unique_chars = set(chars)
+        return unique_chars
 
 def morse_to_text(morse_code: str) -> str:
     # 按单词分割（三个空格）
