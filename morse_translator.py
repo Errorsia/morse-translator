@@ -13,6 +13,9 @@ MORSE_CODE_DICT = {
     '−····': '6', '−−···': '7', '−−−··': '8', '−−−−·': '9', '−−−−−': '0'
 }
 
+
+# ···· · ·−·· ·−·· −−−   ·−− −−− ·−· ·−·· −··
+# · · · ·   ·   · − · ·   · − · ·   − − −       · − −   − − −   · − ·   · − · ·   − · ·
 class MorseCode:
     def __init__(self):
         # self.elements = None
@@ -20,7 +23,7 @@ class MorseCode:
         # self.is_short_code = None
         pass
 
-    def translate(self, input_string : str):
+    def translate(self, input_string: str):
 
         preparing_str = input_string.strip().replace('.', '·').replace('-', '−')
 
@@ -33,10 +36,7 @@ class MorseCode:
             preparing_str = self.element_reassignment(list(elements), preparing_str)
         print(preparing_str)
 
-
-
         print(self.detect_morse_format(preparing_str))
-
 
         print(self.morse_to_text(preparing_str))
 
@@ -46,8 +46,6 @@ class MorseCode:
         # if not self.is_valid_code(input_string):
         #     sys.exit('Unsupported format')
 
-
-
     @staticmethod
     def get_elements(s):
         chars = s.replace(' ', '')
@@ -55,9 +53,13 @@ class MorseCode:
         return unique_chars
 
     @staticmethod
-    def element_reassignment(element_set, preparing : str):
+    def contain_valid_element_number(element_set):
+        return len(element_set) == 1 or len(element_set) == 2
+
+    @staticmethod
+    def element_reassignment(element_set, preparing: str):
         asking = \
-        f"""
+            f"""
         Which relationship is you want: 
         1. {element_set[0]} for - , {element_set[1]} for · ;
         2. {element_set[1]} for - , {element_set[0]} for ·
@@ -152,20 +154,5 @@ class MorseCode:
         return '       '.join(result)
 
 
-def morse_to_text(morse_code: str) -> str:
-    # 按单词分割（三个空格）
-    words = morse_code.strip().split('   ')
-    decoded_words = []
-
-    for word in words:
-        # 按字符分割（一个空格）
-        letters = word.strip().split(' ')
-        decoded_letters = [MORSE_CODE_DICT.get(letter, '?') for letter in letters]
-        decoded_words.append(''.join(decoded_letters))
-
-    return ' '.join(decoded_words)
-
-
-# 示例用法
-example = '···· · −··− ·−−−   ·−− ·− ··· −'
-print(morse_to_text(example))  # 输出: HEXO AXST
+morse_code_module = MorseCode()
+morse_code_module.translate(input())
