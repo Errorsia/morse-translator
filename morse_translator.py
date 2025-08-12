@@ -1,3 +1,5 @@
+import sys
+
 # 定义莫尔斯电码字典
 # 打表法还是太强了
 MORSE_CODE_DICT = {
@@ -51,6 +53,24 @@ class MorseCode:
         chars = s.replace(' ', '')
         unique_chars = set(chars)
         return unique_chars
+
+    @staticmethod
+    def element_reassignment(element_set, preparing : str):
+        asking = \
+        f"""
+        Which relationship is you want: 
+        1. {element_set[0]} for - , {element_set[1]} for · ;
+        2. {element_set[1]} for - , {element_set[0]} for ·
+        """
+        ans = input(asking)
+        if ans == '1':
+            preparing = preparing.replace(element_set[0], '−').replace(element_set[1], '·')
+        elif ans == '2':
+            preparing = preparing.replace(element_set[1], '−').replace(element_set[0], '·')
+        else:
+            sys.exit('Enter Something')
+        return preparing
+
 
 def morse_to_text(morse_code: str) -> str:
     # 按单词分割（三个空格）
