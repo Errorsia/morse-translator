@@ -24,10 +24,12 @@ class MorseCode:
         # is_short_code = None
         pass
 
+
 class MorseCodeType(enum.Enum):
     COMPACT = 1
     SPACED = 2
     INVALID = 3
+
 
 def translate(input_string: str):
     preparing_str = input_string.strip().replace('.', '·').replace('-', '−')
@@ -73,7 +75,7 @@ def contain_valid_element_number(element_set):
 
 def element_reassignment(element_set, preparing: str):
     asking = \
-f"""
+        f"""
 Which relationship is you want: 
 1. {element_set[0]} for - , {element_set[1]} for · ;
 2. {element_set[1]} for - , {element_set[0]} for ·
@@ -173,20 +175,6 @@ def detect_morse_format(morse_str: str) -> MorseCodeType:
         return MorseCodeType.INVALID
 
 
-def morse_to_text(morse_code: str) -> str:
-    # 按单词分割（三个空格）
-    words = morse_code.strip().split('   ')
-    decoded_words = []
-
-    for word in words:
-        # 按字符分割（一个空格）
-        letters = word.strip().split(' ')
-        decoded_letters = [MORSE_CODE_DICT.get(letter, '?') for letter in letters]
-        decoded_words.append(''.join(decoded_letters))
-
-    return ' '.join(decoded_words)
-
-
 def normalize_morse(raw):
     words = raw.strip().split('       ')  # 用7个以上空格分隔单词
     result_words = []
@@ -201,6 +189,21 @@ def normalize_morse(raw):
         result_words.append(' '.join(cleaned_letters))
 
     return '   '.join(result_words)  # 单词之间加3个空格
+
+
+def morse_to_text(morse_code: str) -> str:
+    # 按单词分割（三个空格）
+    words = morse_code.strip().split('   ')
+    decoded_words = []
+
+    for word in words:
+        # 按字符分割（一个空格）
+        letters = word.strip().split(' ')
+        decoded_letters = [MORSE_CODE_DICT.get(letter, '?') for letter in letters]
+        decoded_words.append(''.join(decoded_letters))
+
+    return ' '.join(decoded_words)
+
 
 def compress_morse(morse_str: str) -> str:
     """
@@ -228,5 +231,4 @@ def compress_morse(morse_str: str) -> str:
     return '       '.join(result)
 
 
-morse_code_module = MorseCode()
-morse_code_module.translate(input())
+translate(input())
