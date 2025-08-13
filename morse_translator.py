@@ -18,9 +18,9 @@ MORSE_CODE_DICT = {
 # · · · ·   ·   · − · ·   · − · ·   − − −       · − −   − − −   · − ·   · − · ·   − · ·
 class MorseCode:
     def __init__(self):
-        # self.elements = None
-        # self.input_string = None
-        # self.is_short_code = None
+        # elements = None
+        # input_string = None
+        # is_short_code = None
         pass
 
     def translate(self, input_string: str):
