@@ -187,6 +187,21 @@ def morse_to_text(morse_code: str) -> str:
     return ' '.join(decoded_words)
 
 
+def normalize_morse(raw):
+    words = raw.strip().split('       ')  # 用7个以上空格分隔单词
+    result_words = []
+
+    for word in words:
+        letters = word.strip().split('   ')  # 用3个空格分隔字母
+        cleaned_letters = []
+        for letter in letters:
+            # 去掉字母内部的空格，拼接为一个完整字符
+            cleaned = letter.replace(' ', '')
+            cleaned_letters.append(cleaned)
+        result_words.append(' '.join(cleaned_letters))
+
+    return '   '.join(result_words)  # 单词之间加3个空格
+
 def compress_morse(morse_str: str) -> str:
     """
     将分隔格式的莫尔斯电码转换为紧凑格式：
