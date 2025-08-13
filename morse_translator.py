@@ -60,17 +60,17 @@ def translate(input_string: str):
     # if not is_valid_code(input_string):
     #     sys.exit('Unsupported format')
 
-@staticmethod
+
 def get_elements(s):
     chars = s.replace(' ', '')
     unique_chars = set(chars)
     return unique_chars
 
-@staticmethod
+
 def contain_valid_element_number(element_set):
     return len(element_set) == 1 or len(element_set) == 2
 
-@staticmethod
+
 def element_reassignment(element_set, preparing: str):
     asking = \
         f"""
@@ -87,7 +87,7 @@ def element_reassignment(element_set, preparing: str):
         sys.exit('Enter Something')
     return preparing
 
-@staticmethod
+
 def detect_morse_format(morse_str: str) -> str:
     """
     自动识别莫尔斯电码的格式：
@@ -127,7 +127,7 @@ def detect_morse_format(morse_str: str) -> str:
     else:
         return 'invalid'
 
-@staticmethod
+
 def morse_to_text(morse_code: str) -> str:
     # 按单词分割（三个空格）
     words = morse_code.strip().split('   ')
@@ -141,7 +141,7 @@ def morse_to_text(morse_code: str) -> str:
 
     return ' '.join(decoded_words)
 
-@staticmethod
+
 def compress_morse(morse_str: str) -> str:
     """
     将分隔格式的莫尔斯电码转换为紧凑格式：
