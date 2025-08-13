@@ -88,44 +88,89 @@ Which relationship is you want:
     return preparing
 
 
-def detect_morse_format(morse_str: str) -> str:
+# def detect_morse_format(morse_str: str) -> MorseCodeType:
+#     """
+#     :param morse_str:
+#     :return: MorseCodeType 枚举值，可能是以下之一：
+#          - MorseCodeType.COMPACT: 表示紧凑格式（字母信号无间隔）
+#          - MorseCodeType.SPACED: 表示分隔格式（字母信号有间隔）
+#     """
+#     """
+#     自动识别莫尔斯电码的格式：
+#     - 返回 MorseCodeType.COMPACT 表示紧凑格式（字母信号无间隔）
+#     - 返回 MorseCodeType.SPACED 表示分隔格式（信号之间有空格）
+#     - 返回 MorseCodeType.INVALID 表示格式不明或不合规
+#     """
+#
+#     morse_str = morse_str.strip()
+#     if not morse_str:
+#         return MorseCodeType.INVALID
+#
+#     valid_signals = {'·', '−'}
+#
+#     # 尝试按分隔格式分析
+#     if '   ' in morse_str:
+#         # 尝试按紧凑格式分析（优先判断 COMPACT）
+#         words = morse_str.split('   ')
+#         for word in words:
+#             letters = word.strip().split(' ')
+#             if not all(all(ch in valid_signals for ch in letter) for letter in letters):
+#                 return MorseCodeType.INVALID
+#         return MorseCodeType.COMPACT
+#
+#     elif '       ' in morse_str and '   ' in morse_str:
+#         # 分隔格式分析（SPACED）
+#         words = morse_str.split('       ')
+#         for word in words:
+#             letters = word.strip().split('   ')
+#             for letter in letters:
+#                 signals = letter.strip().split(' ')
+#                 if not all(all(ch in valid_signals for ch in sig) for sig in signals):
+#                     return MorseCodeType.INVALID
+#         return MorseCodeType.SPACED
+#
+#     else:
+#         return MorseCodeType.INVALID
+
+
+def detect_morse_format(morse_str: str) -> MorseCodeType:
     """
     自动识别莫尔斯电码的格式：
-    - 返回 'compact' 表示紧凑格式（字母信号无间隔）
-    - 返回 'spaced' 表示分隔格式（信号之间有空格）
-    - 返回 'invalid' 表示格式不明或不合规
+    - 返回 MorseCodeType.COMPACT 表示紧凑格式（字母信号无间隔）
+    - 返回 MorseCodeType.SPACED 表示分隔格式（信号之间有空格）
+    - 返回 MorseCodeType.INVALID 表示格式不明或不合规
     """
 
     morse_str = morse_str.strip()
     if not morse_str:
-        return 'invalid'
+        return MorseCodeType.INVALID
 
     valid_signals = {'·', '−'}
 
     # 尝试按分隔格式分析
     if '       ' in morse_str and '   ' in morse_str:
-        # 分隔格式应具备字母间3空格、单词间7空格，并且字母内部使用1空格分隔信号
+        # 分隔格式应具备字母间3个空格且、单词间7个空格，并且字母内部使用1个空格分隔信号
         words = morse_str.split('       ')
         for word in words:
             letters = word.strip().split('   ')
             for letter in letters:
                 signals = letter.strip().split(' ')
                 if not all(all(ch in valid_signals for ch in sig) for sig in signals):
-                    return 'invalid'
-        return 'spaced'
+                    return MorseCodeType.INVALID
+        return MorseCodeType.SPACED
 
     # 尝试按紧凑格式分析
     elif '   ' in morse_str:
-        # 紧凑格式中，字母为连续信号，字母间1空格，单词间3空格
+        # 紧凑格式中，字母为连续信号，字母间1个空格，单词间3个空格
         words = morse_str.split('   ')
         for word in words:
             letters = word.strip().split(' ')
             if not all(all(ch in valid_signals for ch in letter) for letter in letters):
-                return 'invalid'
-        return 'compact'
+                return MorseCodeType.INVALID
+        return MorseCodeType.COMPACT
 
     else:
-        return 'invalid'
+        return MorseCodeType.INVALID
 
 
 def morse_to_text(morse_code: str) -> str:
