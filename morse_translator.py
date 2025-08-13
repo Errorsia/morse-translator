@@ -73,11 +73,11 @@ def contain_valid_element_number(element_set):
 
 def element_reassignment(element_set, preparing: str):
     asking = \
-        f"""
-    Which relationship is you want: 
-    1. {element_set[0]} for - , {element_set[1]} for · ;
-    2. {element_set[1]} for - , {element_set[0]} for ·
-    """
+f"""
+Which relationship is you want: 
+1. {element_set[0]} for - , {element_set[1]} for · ;
+2. {element_set[1]} for - , {element_set[0]} for ·
+"""
     ans = input(asking)
     if ans == '1':
         preparing = preparing.replace(element_set[0], '−').replace(element_set[1], '·')
