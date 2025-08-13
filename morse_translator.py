@@ -29,27 +29,35 @@ class MorseCodeType(enum.Enum):
     SPACED = 2
     INVALID = 3
 
-def translate(self, input_string: str):
-
+def translate(input_string: str):
     preparing_str = input_string.strip().replace('.', '·').replace('-', '−')
 
-    elements = self.get_elements(input_string)
+    elements = get_elements(input_string)
 
-    if not self.contain_valid_element_number(elements):
+    if not contain_valid_element_number(elements):
         sys.exit('Invalid element number')
 
     if not elements == {'·', '−'}:
-        preparing_str = self.element_reassignment(list(elements), preparing_str)
+        preparing_str = element_reassignment(list(elements), preparing_str)
+
     print(preparing_str)
 
-    print(self.detect_morse_format(preparing_str))
+    format_type = detect_morse_format(preparing_str)
 
-    print(self.morse_to_text(preparing_str))
+    print(format_type)
+
+    if format_type == MorseCodeType.INVALID:
+        pass
+    elif format_type == MorseCodeType.SPACED:
+        preparing_str = normalize_morse(preparing_str)
+
+    print(preparing_str)
+    print(morse_to_text(preparing_str))
 
     # 示例用法
     # example = '···· · −··− ·−−−   ·−− ·− ··· −'
-    # print(self.morse_to_text(example))  # 输出: HEXO AXST
-    # if not self.is_valid_code(input_string):
+    # print(morse_to_text(example))  # 输出: HEXO AXST
+    # if not is_valid_code(input_string):
     #     sys.exit('Unsupported format')
 
 @staticmethod
