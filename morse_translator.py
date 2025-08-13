@@ -1,3 +1,4 @@
+import enum
 import sys
 
 # 定义莫尔斯电码字典
@@ -22,6 +23,11 @@ class MorseCode:
         # input_string = None
         # is_short_code = None
         pass
+
+class MorseCodeType(enum.Enum):
+    COMPACT = 1
+    SPACED = 2
+    INVALID = 3
 
 def translate(self, input_string: str):
 
