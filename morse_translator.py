@@ -108,17 +108,8 @@ Which relationship is you want:
 #     valid_signals = {'·', '−'}
 #
 #     # 尝试按分隔格式分析
-#     if '   ' in morse_str:
-#         # 尝试按紧凑格式分析（优先判断 COMPACT）
-#         words = morse_str.split('   ')
-#         for word in words:
-#             letters = word.strip().split(' ')
-#             if not all(all(ch in valid_signals for ch in letter) for letter in letters):
-#                 return MorseCodeType.INVALID
-#         return MorseCodeType.COMPACT
-#
-#     elif '       ' in morse_str and '   ' in morse_str:
-#         # 分隔格式分析（SPACED）
+#     if '       ' in morse_str and '   ' in morse_str:
+#         # 分隔格式应具备字母间3个空格且、单词间7个空格，并且字母内部使用1个空格分隔信号
 #         words = morse_str.split('       ')
 #         for word in words:
 #             letters = word.strip().split('   ')
@@ -127,6 +118,16 @@ Which relationship is you want:
 #                 if not all(all(ch in valid_signals for ch in sig) for sig in signals):
 #                     return MorseCodeType.INVALID
 #         return MorseCodeType.SPACED
+#
+#     # 尝试按紧凑格式分析
+#     elif '   ' in morse_str:
+#         # 紧凑格式中，字母为连续信号，字母间1个空格，单词间3个空格
+#         words = morse_str.split('   ')
+#         for word in words:
+#             letters = word.strip().split(' ')
+#             if not all(all(ch in valid_signals for ch in letter) for letter in letters):
+#                 return MorseCodeType.INVALID
+#         return MorseCodeType.COMPACT
 #
 #     else:
 #         return MorseCodeType.INVALID
