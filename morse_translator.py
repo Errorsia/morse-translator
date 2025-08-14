@@ -78,7 +78,7 @@ def contain_valid_element_number(element_set):
 
 def element_reassignment(element_set, preparing: str):
     asking = \
-        f"""
+f"""
 Which relationship is you want: 
 1. {element_set[0]} for - , {element_set[1]} for · ;
 2. {element_set[1]} for - , {element_set[0]} for ·
@@ -94,12 +94,6 @@ Which relationship is you want:
 
 
 # def detect_morse_format(morse_str: str) -> MorseCodeType:
-#     """
-#     :param morse_str:
-#     :return: MorseCodeType 枚举值，可能是以下之一：
-#          - MorseCodeType.COMPACT: 表示紧凑格式（字母信号无间隔）
-#          - MorseCodeType.SPACED: 表示分隔格式（字母信号有间隔）
-#     """
 #     """
 #     自动识别莫尔斯电码的格式：
 #     - 返回 MorseCodeType.COMPACT 表示紧凑格式（字母信号无间隔）
