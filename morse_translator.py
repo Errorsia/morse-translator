@@ -52,7 +52,9 @@ def translate(input_string: str):
     if format_type == MorseCodeType.INVALID:
         pass
     elif format_type == MorseCodeType.SPACED:
-        preparing_str = normalize_morse(preparing_str)
+        preparing_str = convert_spaced_to_standard(preparing_str)
+    elif format_type == MorseCodeType.COMPACT:
+        preparing_str = convert_compact_to_standard(preparing_str)
 
     print(preparing_str)
     print(morse_to_text(preparing_str))
@@ -65,7 +67,7 @@ def translate(input_string: str):
 
 
 def get_elements(s):
-    chars = s.replace(' ', '')
+    chars = s.replace(' / ', '').replace(' ', '')
     unique_chars = set(chars)
     return unique_chars
 
