@@ -168,6 +168,25 @@ def is_compact_format(s: str) -> bool:
         return True
     return False
 
+def convert_spaced_to_standard(raw: str) -> str:
+    """
+    将 SPACED 格式（信号之间有空格，字母间3空格，单词间7空格）转换为 STANDARD 格式。
+    STANDARD 格式：字母之间1空格，单词之间使用 '/' 分隔
+    """
+    raw = raw.strip()
+    words = raw.split('       ')  # 单词间7个空格
+    result_words = []
+
+    for word in words:
+        letters = word.strip().split('   ')  # 字母间3个空格
+        cleaned_letters = []
+        for letter in letters:
+            cleaned = letter.replace(' ', '')  # 去除信号间空格
+            cleaned_letters.append(cleaned)
+        result_words.append(' '.join(cleaned_letters))
+
+    return ' / '.join(result_words)
+
 
 def detect_morse_format(morse_str: str) -> MorseCodeType:
     """
