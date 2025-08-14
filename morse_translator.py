@@ -26,9 +26,10 @@ class MorseCode:
 
 
 class MorseCodeType(enum.Enum):
+    INVALID = -1
     COMPACT = 1
     SPACED = 2
-    INVALID = 3
+    STANDARD = 3
 
 
 def translate(input_string: str):
