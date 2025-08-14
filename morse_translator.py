@@ -157,6 +157,18 @@ def is_spaced_format(s: str) -> bool:
         return True
     return False
 
+def is_compact_format(s: str) -> bool:
+    valid_signals = {'·', '−'}
+    if '   ' in s:
+        words = s.split('   ')
+        for word in words:
+            letters = word.strip().split(' ')
+            if not all(all(ch in valid_signals for ch in letter) for letter in letters):
+                return False
+        return True
+    return False
+
+
 def detect_morse_format(morse_str: str) -> MorseCodeType:
     """
     自动识别莫尔斯电码的格式：
