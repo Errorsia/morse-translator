@@ -232,3 +232,4 @@ def compress_morse(morse_str: str) -> str:
 
 
 translate(input())
+
