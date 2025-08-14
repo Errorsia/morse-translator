@@ -132,6 +132,18 @@ Which relationship is you want:
 #     else:
 #         return MorseCodeType.INVALID
 
+def is_standard_format(s: str) -> bool:
+    valid_signals = {'·', '−'}
+    if '/' not in s:
+        return False
+    words = s.split('/')
+    for word in words:
+        letters = word.strip().split()
+        for letter in letters:
+            if not all(ch in valid_signals for ch in letter):
+                return False
+    return True
+
 
 def detect_morse_format(morse_str: str) -> MorseCodeType:
     """
