@@ -144,6 +144,7 @@ def is_standard_format(s: str) -> bool:
                 return False
     return True
 
+
 def is_spaced_format(s: str) -> bool:
     valid_signals = {'·', '−'}
     if '       ' in s and '   ' in s:
@@ -157,6 +158,7 @@ def is_spaced_format(s: str) -> bool:
         return True
     return False
 
+
 def is_compact_format(s: str) -> bool:
     valid_signals = {'·', '−'}
     if '   ' in s:
@@ -167,6 +169,44 @@ def is_compact_format(s: str) -> bool:
                 return False
         return True
     return False
+
+
+def detect_morse_format(morse_str: str) -> MorseCodeType:
+    """
+    自动识别莫尔斯电码的格式：
+    - COMPACT：紧凑格式（信号无间隔，字母间1空格，单词间3空格）
+    - SPACED：分隔格式（信号间1空格，字母间3空格，单词间7空格）
+    - STANDARD：标准格式（信号无空格，字母间1空格，单词间用 '/' 分隔）
+    - INVALID：格式不明或不合规
+    """
+    morse_str = morse_str.strip()
+    if not morse_str:
+        return MorseCodeType.INVALID
+
+    if is_standard_format(morse_str):
+        return MorseCodeType.STANDARD
+    elif is_spaced_format(morse_str):
+        return MorseCodeType.SPACED
+    elif is_compact_format(morse_str):
+        return MorseCodeType.COMPACT
+    else:
+        return MorseCodeType.INVALID
+
+# def normalize_morse(raw):
+#     words = raw.strip().split('       ')  # 用7个以上空格分隔单词
+#     result_words = []
+#
+#     for word in words:
+#         letters = word.strip().split('   ')  # 用3个空格分隔字母
+#         cleaned_letters = []
+#         for letter in letters:
+#             # 去掉字母内部的空格，拼接为一个完整字符
+#             cleaned = letter.replace(' ', '')
+#             cleaned_letters.append(cleaned)
+#         result_words.append(' '.join(cleaned_letters))
+#
+#     return '   '.join(result_words)  # 单词之间加3个空格
+
 
 def convert_spaced_to_standard(raw: str) -> str:
     """
@@ -204,65 +244,9 @@ def convert_compact_to_standard(raw: str) -> str:
     return ' / '.join(result_words)
 
 
-def detect_morse_format(morse_str: str) -> MorseCodeType:
-    """
-    自动识别莫尔斯电码的格式：
-    - 返回 MorseCodeType.COMPACT 表示紧凑格式（字母信号无间隔）
-    - 返回 MorseCodeType.SPACED 表示分隔格式（信号之间有空格）
-    - 返回 MorseCodeType.INVALID 表示格式不明或不合规
-    """
-
-    morse_str = morse_str.strip()
-    if not morse_str:
-        return MorseCodeType.INVALID
-
-    valid_signals = {'·', '−'}
-
-    # 尝试按分隔格式分析
-    if '       ' in morse_str and '   ' in morse_str:
-        # 分隔格式应具备字母间3个空格且、单词间7个空格，并且字母内部使用1个空格分隔信号
-        words = morse_str.split('       ')
-        for word in words:
-            letters = word.strip().split('   ')
-            for letter in letters:
-                signals = letter.strip().split(' ')
-                if not all(all(ch in valid_signals for ch in sig) for sig in signals):
-                    return MorseCodeType.INVALID
-        return MorseCodeType.SPACED
-
-    # 尝试按紧凑格式分析
-    elif '   ' in morse_str:
-        # 紧凑格式中，字母为连续信号，字母间1个空格，单词间3个空格
-        words = morse_str.split('   ')
-        for word in words:
-            letters = word.strip().split(' ')
-            if not all(all(ch in valid_signals for ch in letter) for letter in letters):
-                return MorseCodeType.INVALID
-        return MorseCodeType.COMPACT
-
-    else:
-        return MorseCodeType.INVALID
-
-
-def normalize_morse(raw):
-    words = raw.strip().split('       ')  # 用7个以上空格分隔单词
-    result_words = []
-
-    for word in words:
-        letters = word.strip().split('   ')  # 用3个空格分隔字母
-        cleaned_letters = []
-        for letter in letters:
-            # 去掉字母内部的空格，拼接为一个完整字符
-            cleaned = letter.replace(' ', '')
-            cleaned_letters.append(cleaned)
-        result_words.append(' '.join(cleaned_letters))
-
-    return '   '.join(result_words)  # 单词之间加3个空格
-
-
 def morse_to_text(morse_code: str) -> str:
     # 按单词分割（三个空格）
-    words = morse_code.strip().split('   ')
+    words = morse_code.strip().split(' / ')
     decoded_words = []
 
     for word in words:
@@ -301,4 +285,3 @@ def compress_morse(morse_str: str) -> str:
 
 
 translate(input())
-
