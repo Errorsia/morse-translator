@@ -144,6 +144,18 @@ def is_standard_format(s: str) -> bool:
                 return False
     return True
 
+def is_spaced_format(s: str) -> bool:
+    valid_signals = {'·', '−'}
+    if '       ' in s and '   ' in s:
+        words = s.split('       ')
+        for word in words:
+            letters = word.strip().split('   ')
+            for letter in letters:
+                signals = letter.strip().split(' ')
+                if not all(all(ch in valid_signals for ch in sig) for sig in signals):
+                    return False
+        return True
+    return False
 
 def detect_morse_format(morse_str: str) -> MorseCodeType:
     """
