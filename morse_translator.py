@@ -188,6 +188,22 @@ def convert_spaced_to_standard(raw: str) -> str:
     return ' / '.join(result_words)
 
 
+def convert_compact_to_standard(raw: str) -> str:
+    """
+    将 COMPACT 格式（字母为连续信号，字母间1空格，单词间3空格）转换为 STANDARD 格式。
+    STANDARD 格式：字母之间1空格，单词之间使用 '/' 分隔
+    """
+    raw = raw.strip()
+    words = raw.split('   ')  # 单词间3个空格
+    result_words = []
+
+    for word in words:
+        letters = word.strip().split(' ')  # 字母间1空格
+        result_words.append(' '.join(letters))
+
+    return ' / '.join(result_words)
+
+
 def detect_morse_format(morse_str: str) -> MorseCodeType:
     """
     自动识别莫尔斯电码的格式：
