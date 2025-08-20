@@ -80,21 +80,22 @@ def contain_valid_element_number(element_set):
     return len(element_set) == 1 or len(element_set) == 2
 
 
-def element_reassignment(element_set, preparing: str):
-    asking = \
-f"""
+def element_reassignment(element_list, preparing: str):
+    if len(element_list) == 2:
+        asking = \
+            f"""
 Which relationship is you want: 
-1. {element_set[0]} for - , {element_set[1]} for · ;
-2. {element_set[1]} for - , {element_set[0]} for ·
+1. {element_list[0]} for - , {element_list[1]} for · ;
+2. {element_list[1]} for - , {element_list[0]} for ·
 """
-    ans = input(asking)
-    if ans == '1':
-        preparing = preparing.replace(element_set[0], '−').replace(element_set[1], '·')
-    elif ans == '2':
-        preparing = preparing.replace(element_set[1], '−').replace(element_set[0], '·')
-    else:
-        sys.exit('Enter Something')
-    return preparing
+        ans = input(asking)
+        if ans == '1':
+            preparing = preparing.replace(element_set[0], '−').replace(element_set[1], '·')
+        elif ans == '2':
+            preparing = preparing.replace(element_set[1], '−').replace(element_set[0], '·')
+        else:
+            sys.exit('Enter Something')
+        return preparing
 
 
 # def detect_morse_format(morse_str: str) -> MorseCodeType:
