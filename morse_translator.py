@@ -34,11 +34,15 @@ class MorseCodeType(enum.Enum):
 
 def translate(input_string: str):
     preparing_str = input_string.strip().replace('.', '·').replace('-', '−')
+    # print(preparing_str)
 
-    elements = get_elements(input_string)
+    elements = get_elements(preparing_str)
+    # print(elements)
 
     if not contain_valid_element_number(elements):
         sys.exit('Invalid element number')
+
+    # print(elements == {'·', '−'})
 
     if not elements == {'·', '−'}:
         preparing_str = element_reassignment(list(elements), preparing_str)
