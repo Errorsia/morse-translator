@@ -173,21 +173,6 @@ def detect_morse_format(morse_str: str) -> MorseCodeType:
     else:
         return MorseCodeType.INVALID
 
-# def normalize_morse(raw):
-#     words = raw.strip().split('       ')  # 用7个以上空格分隔单词
-#     result_words = []
-#
-#     for word in words:
-#         letters = word.strip().split('   ')  # 用3个空格分隔字母
-#         cleaned_letters = []
-#         for letter in letters:
-#             # 去掉字母内部的空格，拼接为一个完整字符
-#             cleaned = letter.replace(' ', '')
-#             cleaned_letters.append(cleaned)
-#         result_words.append(' '.join(cleaned_letters))
-#
-#     return '   '.join(result_words)  # 单词之间加3个空格
-
 
 def convert_spaced_to_standard(raw: str) -> str:
     """
