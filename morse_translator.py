@@ -90,12 +90,27 @@ Which relationship is you want:
 """
         ans = input(asking)
         if ans == '1':
-            preparing = preparing.replace(element_set[0], '−').replace(element_set[1], '·')
+            preparing = preparing.replace(element_list[0], '−').replace(element_list[1], '·')
         elif ans == '2':
-            preparing = preparing.replace(element_set[1], '−').replace(element_set[0], '·')
+            preparing = preparing.replace(element_list[1], '−').replace(element_list[0], '·')
         else:
             sys.exit('Enter Something')
-        return preparing
+    else:
+        asking = \
+            f"""
+Which relationship is you want: 
+1. {element_list[0]} for - ;
+2. {element_list[0]} for ·
+"""
+        ans = input(asking)
+        if ans == '1':
+            preparing = preparing.replace(element_list[0], '−')
+        elif ans == '2':
+            preparing = preparing.replace(element_list[0], '·')
+        else:
+            sys.exit('Enter Something')
+
+    return preparing
 
 
 # def detect_morse_format(morse_str: str) -> MorseCodeType:
