@@ -1,3 +1,3 @@
-# Morse code translator
+# Morse translator
 
-A morse translator based on `Python`
+A morse code translator based on `Python`
